@@ -1,10 +1,10 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.base.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
