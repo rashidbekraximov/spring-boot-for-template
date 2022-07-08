@@ -1,12 +1,14 @@
 package com.example.demo.entity.references;
 
 import com.example.demo.entity.base.BaseReferenceModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,4 +17,14 @@ import javax.persistence.Table;
 public class Form extends BaseReferenceModel {
     @Column(nullable = false,unique = true)
     private String urlNameForm;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id")
+    private Form parentForm;
+
+    @OneToMany(mappedBy = "parentForm", cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Form> childForms;
+
 }
