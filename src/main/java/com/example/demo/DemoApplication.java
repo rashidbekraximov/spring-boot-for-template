@@ -45,7 +45,7 @@ public class DemoApplication {
 				.build();
 	}
 
-	@Bean
+//	@Bean
 	CommandLineRunner runner() {
 		return (args) -> {
 			authUserRepository.deleteAll();

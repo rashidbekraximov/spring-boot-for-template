@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "r_forms", schema = "reference")
 public class Form extends BaseReferenceModel {
     @Column(nullable = false,unique = true)
-    private String urlNameForm;
+    private String hrefAddress;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)

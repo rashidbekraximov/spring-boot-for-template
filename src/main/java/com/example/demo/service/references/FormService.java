@@ -1,7 +1,7 @@
 package com.example.demo.service.references;
 
-import com.example.demo.dto.references.FormDto;
-import com.example.demo.dto.response.AppErrorDto;
+import com.example.demo.dto.references.form.FormCreateDto;
+import com.example.demo.dto.references.form.FormDto;
 import com.example.demo.dto.response.DataDto;
 import com.example.demo.entity.references.Form;
 import com.example.demo.mappers.references.FormMapper;
@@ -26,6 +26,9 @@ public class FormService extends AbstractFormService implements AbstractService 
 
     public ResponseEntity<DataDto<List<FormDto>>> getAll() {
         List<Form> formList = formRepository.findAll(Sort.by("id"));
+        for (Form form : formList) {
+            form.setParentForm(form.getParentForm());
+        }
         return new ResponseEntity<>(new DataDto<>(mapper.toDto(formList), (long) formList.size()), HttpStatus.OK);
     }
 
@@ -46,23 +49,15 @@ public class FormService extends AbstractFormService implements AbstractService 
         return new ResponseEntity<>(new DataDto<>(true), HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<DataDto<Boolean>> create(FormDto dto) {
+    public ResponseEntity<DataDto<Boolean>> create(FormCreateDto dto) {
         Optional<Form> optionalForm = formRepository.findById(dto.getParentFormId());
+
 
         Form createDto = mapper.fromCreateDto(dto);
         if (dto.getParentFormId() == null || dto.getParentFormId() == 0)
             createDto.setParentForm(null);
         else
             optionalForm.ifPresent(createDto::setParentForm);
-
-//        if (optionalForm.isEmpty())
-//            return new ResponseEntity<>(new DataDto<>(AppErrorDto
-//                    .builder()
-//                    .status(HttpStatus.NOT_FOUND)
-//                    .message("Parent form not found  -> " + dto.getParentFormId())
-//                    .build()
-//            ), HttpStatus.NOT_FOUND);
-
 
         formRepository.save(createDto);
         return new ResponseEntity<>(new DataDto<>(true), HttpStatus.CREATED);

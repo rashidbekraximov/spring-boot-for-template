@@ -1,6 +1,7 @@
 package com.example.demo.mappers.references;
 
-import com.example.demo.dto.references.FormDto;
+import com.example.demo.dto.references.form.FormCreateDto;
+import com.example.demo.dto.references.form.FormDto;
 import com.example.demo.entity.references.Form;
 import com.example.demo.mappers.BaseReferenceMapper;
 import org.mapstruct.Mapper;
@@ -21,6 +22,5 @@ public interface FormMapper extends BaseReferenceMapper<
     @Override
     List<FormDto> toDto(List<Form> e);
 
-    @Override
-    List<Form> fromListCreateDto(List<FormDto> formDtos);
+    Form fromCreateDto(FormCreateDto formDto);
 }

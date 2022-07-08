@@ -1,7 +1,8 @@
 package com.example.demo.controller.references;
 
 import com.example.demo.controller.AbstractController;
-import com.example.demo.dto.references.FormDto;
+import com.example.demo.dto.references.form.FormCreateDto;
+import com.example.demo.dto.references.form.FormDto;
 import com.example.demo.dto.response.DataDto;
 import com.example.demo.service.references.FormService;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class FormController extends AbstractController<FormService> {
     }
 
     @RequestMapping(value = PATH + "/form", method = RequestMethod.POST)
-    public ResponseEntity<DataDto<Boolean>> create(@Valid @RequestBody FormDto dto) {
+    public ResponseEntity<DataDto<Boolean>> create(@Valid @RequestBody FormCreateDto dto) {
         return service.create(dto);
     }
 
