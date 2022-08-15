@@ -23,7 +23,7 @@ public class ExternalApiController {
     @ApiOperation(value = "get weather api", response = Long.class)
     @GetMapping(value = "/weather")
     public Object getWeather() {
-        return restTemplate.getForObject("https://api.openweathermap.org/data/2.5/weather?q=Urgench&appid=6d6a812fc705c1675b910cf2cf527236", Object.class);
+        return restTemplate.getForObject("http://api.weatherapi.com/v1/current.json?key=70452c67861d41d787861437221508&q=Urgench&aqi=no", Object.class);
     }
 
     @ApiOperation(value = "get currency api", response = Long.class)
